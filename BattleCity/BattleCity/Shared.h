@@ -18,5 +18,3 @@ typedef struct
 }Base;
 
 extern Base base;
-
-void deltaTime();

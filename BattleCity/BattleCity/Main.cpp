@@ -15,7 +15,6 @@ void Main()
 	while (System::Update())
 	{
 		ClearPrint();
-		deltaTime();
 
 		if (not scene.update())
 		{

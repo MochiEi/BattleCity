@@ -8,6 +8,8 @@ GAME::GAME(const InitData& init) : IScene{ init }
 	{
 		frame << frameSprites(1024 * i, 0, 1024, 896);
 	}
+
+	player.init();
 }
 
 GAME::~GAME()
@@ -18,9 +20,11 @@ GAME::~GAME()
 void GAME::update()
 {
 	debug.game();
+	player.update();
 }
 
 void GAME::draw() const
 {
 	frame[(int)frameNo].draw(0, 0);
+	player.draw();
 }
