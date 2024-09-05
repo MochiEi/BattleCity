@@ -11,10 +11,16 @@ using App = SceneManager< String, GameData >;
 #include "Debug.h"
 #include "Game.h"
 #include "Player.h"
+#include "Map.h"
 
-typedef struct
+ struct InputMoveKey
 {
-	double deltaTime;
-}Base;
+	bool inputW = false;
+	bool inputA = false;
+	bool inputS = false;
+	bool inputD = false;
+};
 
-extern Base base;
+extern InputMoveKey moveKey;
+
+bool pressedWASD(String pushKey);

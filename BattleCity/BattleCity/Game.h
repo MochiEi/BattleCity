@@ -15,6 +15,4 @@ public:
 
 private:
 
-	Array<TextureRegion> frame;
-	double frameNo = 2;
 };

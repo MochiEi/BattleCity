@@ -2,13 +2,7 @@
 
 GAME::GAME(const InitData& init) : IScene{ init }
 {
-	Texture frameSprites{ U"example/image/screen_game.png", TextureDesc::Mipped };
-
-	for (int i = 0; i < 3; i++)
-	{
-		frame << frameSprites(1024 * i, 0, 1024, 896);
-	}
-
+	map.init();
 	player.init();
 }
 
@@ -25,6 +19,6 @@ void GAME::update()
 
 void GAME::draw() const
 {
-	frame[(int)frameNo].draw(0, 0);
+	map.draw();
 	player.draw();
 }
