@@ -4,6 +4,7 @@
 class Player
 {
 public:
+	friend class Debug;
 
 	void init();
 
@@ -42,6 +43,7 @@ private:
 	Vec2 gridCount{ 0,0 };
 
 	int32 moveSpeed = 150;
+	int32 removeSpeed = 10;
 	int32 frameSpeed = 20;
 };
 

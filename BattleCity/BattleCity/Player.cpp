@@ -135,22 +135,22 @@ void Player::collision()
 	{
 		if (dir == up)
 		{
-			playerPos.y += moveSpeed * Scene::DeltaTime();
+			playerPos.y += removeSpeed * Scene::DeltaTime();
 			gridCount.y = 0;
 		}
 		if (dir == down)
 		{
-			playerPos.y -= moveSpeed * Scene::DeltaTime();
+			playerPos.y -= removeSpeed * Scene::DeltaTime();
 			gridCount.y = 0;
 		}
 		if (dir == left)
 		{
-			playerPos.x += moveSpeed * Scene::DeltaTime();
+			playerPos.x += removeSpeed * Scene::DeltaTime();
 			gridCount.x = 0;
 		}
 		if (dir == right)
 		{
-			playerPos.x -= moveSpeed * Scene::DeltaTime();
+			playerPos.x -= removeSpeed * Scene::DeltaTime();
 			gridCount.x = 0;
 		}
 		playerHitBox = { playerPos,64,64 };
