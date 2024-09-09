@@ -20,8 +20,11 @@ void Player::init()
 
 void Player::update()
 {
+	status();
 	move();
 	collision();
+
+	debug_changeLv();
 }
 
 void Player::draw()
@@ -31,6 +34,48 @@ void Player::draw()
 
 	if (playerImage.size() == 8)
 		playerImage[(int)framePlayer].draw(playerPos);
+}
+
+void Player::status()
+{
+	playerImage.clear();
+
+	if (lv == level1)
+	{
+		for (auto sprites : playerSprites_Lv1)
+			playerImage << sprites;
+
+		bulletLimit = 1;
+		bulletSpeed = 600;
+		bulletType = HE;
+	}
+	if (lv == level2)
+	{
+		for (auto sprites : playerSprites_Lv2)
+			playerImage << sprites;
+
+		bulletLimit = 1;
+		bulletSpeed = 1000;
+		bulletType = HE;
+	}
+	if (lv == level3)
+	{
+		for (auto sprites : playerSprites_Lv3)
+			playerImage << sprites;
+
+		bulletLimit = 2;
+		bulletSpeed = 1000;
+		bulletType = HE;
+	}
+	if (lv == level4)
+	{
+		for (auto sprites : playerSprites_Lv4)
+			playerImage << sprites;
+
+		bulletLimit = 2;
+		bulletSpeed = 1000;
+		bulletType = AP;
+	}
 }
 
 void Player::move()
@@ -155,4 +200,16 @@ void Player::collision()
 		}
 		playerHitBox = { playerPos,64,64 };
 	}
+}
+
+void Player::debug_changeLv()
+{
+	if (Key1.down())
+		lv = level1;
+	if (Key2.down())
+		lv = level2;
+	if (Key3.down())
+		lv = level3;
+	if (Key4.down())
+		lv = level4;
 }

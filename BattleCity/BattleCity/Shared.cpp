@@ -4,6 +4,7 @@ Debug debug;
 InputMoveKey moveKey;
 
 Player player;
+Bullet bullet;
 Map map;
 
 bool pressedWASD(String pushKey)

@@ -11,6 +11,7 @@ using App = SceneManager< String, GameData >;
 #include "Debug.h"
 #include "Game.h"
 #include "Player.h"
+#include "Bullet.h"
 #include "Map.h"
 
  struct InputMoveKey

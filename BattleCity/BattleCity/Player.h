@@ -12,9 +12,13 @@ public:
 
 	void draw();
 
+	void debug_changeLv();
+
 	RectF playerHitBox;
 
 private:
+
+	void status();
 
 	void move();
 
@@ -45,6 +49,15 @@ private:
 	int32 moveSpeed = 150;
 	int32 removeSpeed = 10;
 	int32 frameSpeed = 20;
+
+	int32 bulletCount = 0;
+	int32 bulletLimit;
+	int32 bulletSpeed;
+
+	enum BulletType
+	{
+		HE, AP
+	}bulletType;
 };
 
 extern Player player;
