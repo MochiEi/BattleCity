@@ -4,7 +4,6 @@
 class Player
 {
 public:
-	friend class Debug;
 
 	void init();
 
@@ -22,6 +21,8 @@ private:
 
 	void move();
 
+	void shot();
+
 	void collision();
 
 	enum Level
@@ -31,7 +32,7 @@ private:
 
 	enum direction
 	{
-		up, down, right, left
+		up, down, left, right
 	}dir;
 
 	Vec2 playerPos{ 352, 800 };

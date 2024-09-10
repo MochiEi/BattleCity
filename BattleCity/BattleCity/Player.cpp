@@ -22,6 +22,7 @@ void Player::update()
 {
 	status();
 	move();
+	shot();
 	collision();
 
 	debug_changeLv();
@@ -172,6 +173,14 @@ void Player::move()
 
 	playerHitBox = { playerPos,64,64 };
 	gridHitBox = { map.gridMap[gridPos.x][gridPos.y],64,64 };
+}
+
+void Player::shot()
+{
+	if (KeySpace.down())
+	{
+		bullet.isShot(bullet.player, (int32)dir, playerPos, bulletSpeed);
+	}
 }
 
 void Player::collision()
