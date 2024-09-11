@@ -171,7 +171,6 @@ void Player::move()
 		}
 	}
 
-	playerHitBox = { playerPos,64,64 };
 	gridHitBox = { map.gridMap[gridPos.x][gridPos.y],64,64 };
 }
 
@@ -187,28 +186,22 @@ void Player::collision()
 {
 	while (!map.playArea.contains(playerHitBox))
 	{
-		if (dir == up)
-		{
-			playerPos.y += removeSpeed * Scene::DeltaTime();
-			gridCount.y = 0;
-		}
-		if (dir == down)
-		{
-			playerPos.y -= removeSpeed * Scene::DeltaTime();
-			gridCount.y = 0;
-		}
-		if (dir == left)
-		{
-			playerPos.x += removeSpeed * Scene::DeltaTime();
-			gridCount.x = 0;
-		}
-		if (dir == right)
-		{
-			playerPos.x -= removeSpeed * Scene::DeltaTime();
-			gridCount.x = 0;
-		}
+		collisionRecovery(playerPos, gridCount, (int32)dir);
+
 		playerHitBox = { playerPos,64,64 };
 	}
+
+	for(int i = 0;i<enemy.max;i++)
+	{
+		while (enemy.enemyHitBox[i].intersects(playerHitBox))
+		{
+			collisionRecovery(playerPos, gridCount, (int32)dir);
+
+			playerHitBox = { playerPos,64,64 };
+		}
+	}
+
+	playerHitBox = { playerPos,64,64 };
 }
 
 void Player::debug_changeLv()

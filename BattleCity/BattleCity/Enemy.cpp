@@ -23,6 +23,7 @@ void Enemy::init()
 void Enemy::update()
 {
 	status();
+	collision();
 }
 
 void Enemy::draw()
@@ -82,4 +83,10 @@ void Enemy::status()
 			num.bulletSpeed = 600;
 		}
 	}
+}
+
+void Enemy::collision()
+{
+	for (int i = 0; i < max; i++)
+		enemyHitBox[i] = { number[i].enemyPos,64,64 };
 }

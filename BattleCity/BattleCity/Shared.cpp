@@ -1,7 +1,7 @@
 ﻿#include "Shared.h"
 
 Debug debug;
-InputMoveKey moveKey;
+Share share;
 
 Player player;
 Enemy enemy;
@@ -19,65 +19,94 @@ bool pressedWASD(String pushKey)
 	{
 		if (pushKey == W)
 		{
-			if (!moveKey.inputA && !moveKey.inputS && !moveKey.inputD)
+			if (!share.inputA && !share.inputS && !share.inputD)
 			{
-				moveKey.inputW = true;
+				share.inputW = true;
 				return true;
 			}
 		}
 	}
 	else
 	{
-		moveKey.inputW = false;
+		share.inputW = false;
 	}
 
 	if (KeyA.pressed())
 	{
 		if (pushKey == A)
 		{
-			if (!moveKey.inputW && !moveKey.inputS && !moveKey.inputD)
+			if (!share.inputW && !share.inputS && !share.inputD)
 			{
-				moveKey.inputA = true;
+				share.inputA = true;
 				return true;
 			}
 		}
 	}
 	else
 	{
-		moveKey.inputA = false;
+		share.inputA = false;
 	}
 
 	if (KeyS.pressed())
 	{
 		if (pushKey == S)
 		{
-			if (!moveKey.inputW && !moveKey.inputA && !moveKey.inputD)
+			if (!share.inputW && !share.inputA && !share.inputD)
 			{
-				moveKey.inputS = true;
+				share.inputS = true;
 				return true;
 			}
 		}
 	}
 	else
 	{
-		moveKey.inputS = false;
+		share.inputS = false;
 	}
 
 	if (KeyD.pressed())
 	{
 		if(pushKey == D)
 		{
-			if (!moveKey.inputW && !moveKey.inputA && !moveKey.inputS)
+			if (!share.inputW && !share.inputA && !share.inputS)
 			{
-				moveKey.inputD = true;
+				share.inputD = true;
 				return true;
 			}
 		}
 	}
 	else
 	{
-		moveKey.inputD = false;
+		share.inputD = false;
 	}
 
 	return false;
+}
+
+void collisionRecovery(Vec2& pos, Vec2& grid, int32 dir)
+{
+	enum Direction
+	{
+		up, down, left, right
+	};
+
+	if (dir == up)
+	{
+		pos.y += share.recoverySpeed * Scene::DeltaTime();
+		grid.y += share.recoverySpeed * Scene::DeltaTime();
+	}
+	if (dir == down)
+	{
+		pos.y -= share.recoverySpeed * Scene::DeltaTime();
+		grid.y -= share.recoverySpeed * Scene::DeltaTime();
+	}
+	if (dir == left)
+	{
+		pos.x += share.recoverySpeed * Scene::DeltaTime();
+		grid.x += share.recoverySpeed * Scene::DeltaTime();
+	}
+	if (dir == right)
+	{
+		pos.x -= share.recoverySpeed * Scene::DeltaTime();
+		grid.x -= share.recoverySpeed * Scene::DeltaTime();
+	}
 }

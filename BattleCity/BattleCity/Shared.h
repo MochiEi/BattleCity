@@ -15,14 +15,20 @@ using App = SceneManager< String, GameData >;
 #include "Bullet.h"
 #include "Map.h"
 
- struct InputMoveKey
+ struct Share
 {
+	/// 移動制御 ///
 	bool inputW = false;
 	bool inputA = false;
 	bool inputS = false;
 	bool inputD = false;
+
+	/// 衝突復帰 ///
+	int32 recoverySpeed = 10;
 };
 
-extern InputMoveKey moveKey;
+extern Share share;
 
 bool pressedWASD(String pushKey);
+
+void collisionRecovery(Vec2& pos, Vec2& grid, int32 dir);

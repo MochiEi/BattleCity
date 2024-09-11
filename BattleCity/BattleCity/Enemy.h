@@ -11,15 +11,15 @@ public:
 
 	void draw();
 
-	RectF enemyHitBox;
-
 	static const int32 max = 4;
+
+	RectF enemyHitBox[max];
 
 private:
 
 	void status();
 
-	void move();
+	void collision();
 
 	enum Type
 	{
@@ -53,7 +53,6 @@ private:
 		Vec2 gridCount{ 0,0 };
 
 		int32 moveSpeed;
-		int32 removeSpeed = 10;
 		int32 frameSpeed = 20;
 
 		int32 bulletCount = 0;
