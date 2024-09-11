@@ -34,7 +34,7 @@ private:
 
 	int32 frameSpeed = 20;
 
-	enum direction
+	enum Direction
 	{
 		up, down, left, right
 	}dir;
@@ -42,7 +42,7 @@ private:
 	struct Number
 	{
 		User user;
-		direction dir;
+		Direction dir;
 		Vec2 pos;
 		int32 speed;
 		bool active;

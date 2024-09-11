@@ -30,7 +30,7 @@ private:
 		level1, level2, level3, level4
 	}lv;
 
-	enum direction
+	enum Direction
 	{
 		up, down, left, right
 	}dir;

@@ -4,6 +4,7 @@ Debug debug;
 InputMoveKey moveKey;
 
 Player player;
+Enemy enemy;
 Bullet bullet;
 Map map;
 

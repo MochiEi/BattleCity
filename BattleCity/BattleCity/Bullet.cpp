@@ -123,7 +123,7 @@ void Bullet::isShot(User user, int32 dir, Vec2 pos, int32 speed)
 		if (!num.active)
 		{
 			num.user = user;
-			num.dir = (direction)dir;
+			num.dir = (Direction)dir;
 			num.pos = pos;
 			num.speed = speed;
 			num.active = true;
