@@ -23,15 +23,18 @@ void Player::update()
 	status();
 	move();
 	shot();
-	collision();
 
 	debug_changeLv();
 }
 
 void Player::draw()
 {
-	playerHitBox.draw();
+	//playerHitBox.draw();
 	//gridHitBox.draw();
+	//collisionUp.draw(Color(Palette::Red));
+	//collisionDown.draw(Color(Palette::Red));
+	//collisionLeft.draw(Color(Palette::Red));
+	//collisionRight.draw(Color(Palette::Red));
 
 	if (playerImage.size() == 8)
 		playerImage[(int)framePlayer].draw(playerPos);
@@ -82,17 +85,20 @@ void Player::status()
 void Player::move()
 {
 	//Print << gridCount;
-	Print << playerHitBox;
+	//Print << playerHitBox;
 
-		if (pressedWASD(U"W"))
+	if (pressedWASD(U"W"))
+	{
+		dir = up;
+
+		framePlayer += frameSpeed * Scene::DeltaTime();
+		if (framePlayer < 0 || framePlayer >= 2) framePlayer = 0;
+
+		playerPos.x = gridHitBox.x;
+
+		if (collision())
 		{
-			dir = up;
-
-			playerPos.x = gridHitBox.x;
 			playerPos.y -= moveSpeed * Scene::DeltaTime();
-
-			framePlayer += frameSpeed * Scene::DeltaTime();
-			if (framePlayer < 0 || framePlayer >= 2) framePlayer = 0;
 
 			gridCount.x = 0;
 
@@ -104,16 +110,20 @@ void Player::move()
 				gridPos.y--;
 			}
 		}
+	}
 
-		if (pressedWASD(U"S"))
+	if (pressedWASD(U"S"))
+	{
+		dir = down;
+
+		framePlayer += frameSpeed * Scene::DeltaTime();
+		if (framePlayer < 2 || framePlayer >= 4) framePlayer = 2;
+
+		playerPos.x = gridHitBox.x;
+
+		if (collision())
 		{
-			dir = down;
-
-			playerPos.x = gridHitBox.x;
 			playerPos.y += moveSpeed * Scene::DeltaTime();
-
-			framePlayer += frameSpeed * Scene::DeltaTime();
-			if (framePlayer < 2 || framePlayer >= 4) framePlayer = 2;
 
 			gridCount.x = 0;
 
@@ -126,16 +136,20 @@ void Player::move()
 				gridPos.y++;
 			}
 		}
+	}
 
-		if (pressedWASD(U"A"))
+	if (pressedWASD(U"A"))
+	{
+		dir = left;
+
+		framePlayer += frameSpeed * Scene::DeltaTime();
+		if (framePlayer < 4 || framePlayer >= 6) framePlayer = 4;
+
+		playerPos.y = gridHitBox.y;
+
+		if (collision())
 		{
-			dir = left;
-
-			playerPos.y = gridHitBox.y;
 			playerPos.x -= moveSpeed * Scene::DeltaTime();
-
-			framePlayer += frameSpeed * Scene::DeltaTime();
-			if (framePlayer < 4 || framePlayer >= 6) framePlayer = 4;
 
 			gridCount.y = 0;
 
@@ -148,16 +162,20 @@ void Player::move()
 				gridPos.x--;
 			}
 		}
+	}
 
-		if (pressedWASD(U"D"))
+	if (pressedWASD(U"D"))
+	{
+		dir = right;
+
+		framePlayer += frameSpeed * Scene::DeltaTime();
+		if (framePlayer < 6 || framePlayer >= 8) framePlayer = 6;
+
+		playerPos.y = gridHitBox.y;
+
+		if (collision())
 		{
-			dir = right;
-
-			playerPos.y = gridHitBox.y;
 			playerPos.x += moveSpeed * Scene::DeltaTime();
-
-			framePlayer += frameSpeed * Scene::DeltaTime();
-			if (framePlayer < 6 || framePlayer >= 8) framePlayer = 6;
 
 			gridCount.y = 0;
 
@@ -170,8 +188,14 @@ void Player::move()
 				gridPos.x++;
 			}
 		}
+	}
 
 	gridHitBox = { map.gridMap[gridPos.x][gridPos.y],64,64 };
+	playerHitBox = { playerPos.x + share.tolerance , playerPos.y + share.tolerance, 64 - share.tolerance * 2,64 - share.tolerance * 2 };
+	collisionUp = { playerPos.x + 22, playerPos.y, 20, share.tolerance };
+	collisionDown = { playerPos.x + 22, playerPos.y + 64, 20, share.tolerance };
+	collisionLeft = { playerPos.x, playerPos.y + 22, share.tolerance,20 };
+	collisionRight = { playerPos.x + 64, playerPos.y + 22, share.tolerance,20 };
 }
 
 void Player::shot()
@@ -186,26 +210,53 @@ void Player::shot()
 	}
 }
 
-void Player::collision()
+bool Player::collision()
 {
-	playerHitBox = {  playerPos.x + share.tolerance , playerPos.y + share.tolerance, 64 - share.tolerance * 2,64 - share.tolerance  * 2};
-
-	while (!map.playArea.contains(playerHitBox))
+	for (auto enemyHitBox : enemy.enemyHitBox)
 	{
-		collisionRecovery(playerPos, gridCount, (int32)dir);
-
-		playerHitBox = {  playerPos.x + share.tolerance , playerPos.y + share.tolerance, 64 - share.tolerance * 2,64 - share.tolerance  * 2};
-	}
-
-	for(int i = 0;i<enemy.max;i++)
-	{
-		while (enemy.enemyHitBox[i].intersects(playerHitBox))
+		if (dir == up)
 		{
-			collisionRecovery(playerPos, gridCount, (int32)dir);
+			RectF coll = collisionUp;
 
-			playerHitBox = {  playerPos.x + share.tolerance , playerPos.y + share.tolerance, 64 - share.tolerance * 2,64 - share.tolerance  * 2};
+			if (!map.playArea.contains(coll))
+				return false;
+
+			if (enemyHitBox.intersects(coll))
+				return false;
+		}
+		if (dir == down)
+		{
+			RectF coll = collisionDown;
+
+			if (!map.playArea.contains(coll))
+				return false;
+
+			if (enemyHitBox.intersects(coll))
+				return false;
+		}
+		if (dir == left)
+		{
+			RectF coll = collisionLeft;
+
+			if (!map.playArea.contains(coll))
+				return false;
+
+			if (enemyHitBox.intersects(coll))
+				return false;
+		}
+		if (dir == right)
+		{
+			RectF coll = collisionRight;
+
+			if (!map.playArea.contains(coll))
+				return false;
+
+			if (enemyHitBox.intersects(coll))
+				return false;
 		}
 	}
+
+	return true;
 }
 
 void Player::debug_changeLv()

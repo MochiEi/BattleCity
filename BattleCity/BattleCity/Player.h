@@ -25,7 +25,7 @@ private:
 
 	void shot();
 
-	void collision();
+	bool collision();
 
 	enum Level
 	{
@@ -44,6 +44,11 @@ private:
 	Array<TextureRegion> playerSprites_Lv3;
 	Array<TextureRegion> playerSprites_Lv4;
 	double framePlayer;
+
+	RectF collisionUp;
+	RectF collisionDown;
+	RectF collisionLeft;
+	RectF collisionRight;
 
 	Point gridPos{ 9,24 };
 	Rect gridHitBox;

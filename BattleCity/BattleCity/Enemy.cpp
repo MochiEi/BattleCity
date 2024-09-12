@@ -28,7 +28,7 @@ void Enemy::update()
 
 void Enemy::draw()
 {
-	for (auto& num : number)
+	for (auto num : number)
 	{
 		if (num.isSurvive)
 		{
@@ -81,10 +81,33 @@ void Enemy::status()
 			num.bulletSpeed = 600;
 		}
 	}
+
+	for (int i = 0; i < max; i++)
+	{
+		if (!number[i].isSurvive)
+		{
+			number[i].enemyPos = { -64,-64 };
+			enemyHitBox[i] = { number[i].enemyPos,64,64 };
+		}
+	}
 }
 
 void Enemy::collision()
 {
 	for (int i = 0; i < max; i++)
 		enemyHitBox[i] = { number[i].enemyPos,64,64 };
+
+	for (int i = 0; i < max; i++)
+	{
+		if (number[i].isSurvive)
+		{
+			for (auto bulletHitBox : bullet.bulletHitBox)
+			{
+				if (enemyHitBox[i].intersects(bulletHitBox))
+				{
+					number[i].isSurvive = false;
+				}
+			}
+		}
+	}
 }
