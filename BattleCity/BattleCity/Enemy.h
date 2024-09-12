@@ -15,6 +15,8 @@ public:
 
 	RectF enemyHitBox[max];
 
+	int32 bulletCount[max];
+
 private:
 
 	void status();
@@ -41,7 +43,7 @@ private:
 		bool isSurvive;
 		int32 hp;
 
-		Vec2 enemyPos{ 94, 64 };
+		Vec2 enemyPos{ 384,410 };//{ 94, 64 };
 		Array<TextureRegion> enemyImage;
 		double frameEnemy;
 
@@ -55,7 +57,6 @@ private:
 		int32 moveSpeed;
 		int32 frameSpeed = 20;
 
-		int32 bulletCount = 0;
 		int32 bulletLimit = 1;
 		int32 bulletSpeed;
 

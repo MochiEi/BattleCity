@@ -24,7 +24,10 @@ using App = SceneManager< String, GameData >;
 	bool inputD = false;
 
 	/// 衝突復帰 ///
-	int32 recoverySpeed = 10;
+	int32 recoverySpeed = 1;
+
+	/// 当たり判定許容値 ///
+	int32 tolerance = 1;
 };
 
 extern Share share;

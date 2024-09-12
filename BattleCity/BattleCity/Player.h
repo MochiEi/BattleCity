@@ -15,6 +15,8 @@ public:
 
 	RectF playerHitBox;
 
+	int32 bulletCount = 0;
+
 private:
 
 	void status();
@@ -50,7 +52,6 @@ private:
 	int32 moveSpeed = 150;
 	int32 frameSpeed = 20;
 
-	int32 bulletCount = 0;
 	int32 bulletLimit;
 	int32 bulletSpeed;
 

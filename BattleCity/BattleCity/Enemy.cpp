@@ -28,8 +28,6 @@ void Enemy::update()
 
 void Enemy::draw()
 {
-	Print << number[0].enemyPos;
-
 	for (auto& num : number)
 	{
 		if (num.isSurvive)

@@ -13,7 +13,7 @@ public:
 
 	enum User
 	{
-		player, enemy
+		enemy1, enemy2, enemy3, enemy4, player1
 	}user;
 
 	void isShot(User user, int32 dir, Vec2 pos, int32 speed);
@@ -28,6 +28,8 @@ private:
 	void move();
 
 	void collision();
+
+	void returnCount(User user);
 
 	Array<TextureRegion> bulletImage;
 	Array<TextureRegion> boomImage;
